@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import Product from './Product'
+import Axios from 'axios'
 
 export default class ProductList extends Component{
     state = {
-        products: [
-          {id: 1, name: 'Some product', description: 'book', img:'600'},
-          {id: 2, name: 'Another product', description: 'another desc', img:'150'},
-          {id: 3, name: 'Learn React', description: 'First steps with React', img:''},
-          {id: 4, name: 'React by example', description: 'book', img:''},
-          {id: 5, name: 'Asp.Net Core & React', description: 'book', img:''},
-          {id: 6, name: 'React & Redux', description: 'book', img:''},
-        ]
-      }
+        products: []
+    }
+
+    async componentDidMount() {
+        let result = await Axios('/api/products')
+        //console.log(result)
+        this.setState({
+            products: result.data
+        })
+    }
 
       render(){
           return(
