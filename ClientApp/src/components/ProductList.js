@@ -25,7 +25,7 @@ export default class ProductList extends Component{
               id={product.id}
               name={product.name}
               description={product.description}
-              img={product.img}
+              img={product.image}
               ></Product>
             )}
       
