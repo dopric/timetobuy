@@ -13,11 +13,16 @@ namespace timetobuy.Features
     [ApiController]
     public class ProductsController : ControllerBase
     {
+        private IProductService productService;
+        public ProductsController(IProductService service)
+        {
+            productService = service;
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(ProductService.GetAll());
+            return Ok(productService.GetAll());
         }
 
         [HttpGet]
@@ -25,7 +30,7 @@ namespace timetobuy.Features
         public IActionResult Details(int id)
         {
             
-            return Ok(ProductService.GetById(id));
+            return Ok(productService.GetById(id));
         }
     }
 }

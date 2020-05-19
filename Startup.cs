@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using timetobuy.Domain;
+using timetobuy.Services;
 
 namespace timetobuy
 {
@@ -27,6 +28,7 @@ namespace timetobuy
             services.AddDbContext<DatabaseContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("dev_mssql_db")));
 
+            services.AddTransient<IProductService, ProductService>();
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
