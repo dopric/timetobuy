@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
+import { Button, TextField } from '@material-ui/core'
 
 export default class ProductDetails extends React.Component {
 	constructor(props) {
@@ -44,10 +45,13 @@ export default class ProductDetails extends React.Component {
 							alt='Product'
 						/>
 						<div className='media-body'>
-							<h3>ID {this.props.match.params.id}</h3>
-							<h1>{name}</h1>
-							<p>{description}</p>
-							<p>{price}</p>
+						<TextField value={name}></TextField>
+							<TextField value={description}/>
+						<TextField value={price} />
+
+						<Button variant="contained" color="primary">
+							Save
+							</Button>
 						</div>
 					</div>
 			</div>
