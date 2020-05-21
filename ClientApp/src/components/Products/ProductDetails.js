@@ -1,6 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
-import { Button, TextField } from '@material-ui/core'
+import AddToCart from './AddToCart'
 
 export default class ProductDetails extends React.Component {
 	constructor(props) {
@@ -45,13 +45,12 @@ export default class ProductDetails extends React.Component {
 							alt='Product'
 						/>
 						<div className='media-body'>
-						<TextField value={name}></TextField>
-							<TextField value={description}/>
-						<TextField value={price} />
-
-						<Button variant="contained" color="primary">
-							Save
-							</Button>
+							<div>
+								<h3>{name}</h3>
+								<p>{description}</p>
+								<p>CHF {price} </p>
+							</div>
+						<AddToCart productId={this.props.match.params.id}/>
 						</div>
 					</div>
 			</div>
