@@ -50,8 +50,11 @@ export default class ProductDetails extends React.Component {
 								<p>{description}</p>
 								<p>CHF {price} </p>
 							</div>
-						<AddToCart productId={this.props.match.params.id}/>
+						<div style={{ marginLeft: "10px" }}>
+							<AddToCart productId={this.props.match.params.id} />
 						</div>
+					</div>
+					
 					</div>
 			</div>
 		)

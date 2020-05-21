@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using timetobuy.Domain;
 using timetobuy.Services;
+using Newtonsoft;
 
 namespace timetobuy
 {
@@ -24,11 +25,13 @@ namespace timetobuy
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             services.AddDbContext<DatabaseContext>(options => 
             options.UseSqlServer(Configuration.GetConnectionString("dev_mssql_db")));
 
             services.AddTransient<IProductService, ProductService>();
+            services.AddScoped<CartService>();
+
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
