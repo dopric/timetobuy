@@ -15,5 +15,6 @@ namespace timetobuy.Domain
         }
 
         public DbSet<Product> Products{ get; set; }
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
     }
 }
