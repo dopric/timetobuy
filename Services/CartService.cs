@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,18 +20,29 @@ namespace timetobuy.Services
         public AddToCartResult AddToCart(AddToCartItem item)
         {
             ShoppingCart cart = null;
-            if (!item.SessionId.HasValue)
+            Guid sessionId = Guid.Empty;
+           
+            if (item.SessionId.HasValue)
             {
-                cart = new ShoppingCart { SessionId = Guid.NewGuid(), CreatedOn = DateTime.Now };
+                cart = dbContext.ShoppingCart.Include(x=>x.Items).FirstOrDefault(c => c.SessionId.Equals(item.SessionId.Value));
+                sessionId = item.SessionId.Value;
+            }
+            if (cart == null)
+            {
+                sessionId = Guid.NewGuid();
+                cart = new ShoppingCart { SessionId =sessionId, CreatedOn = DateTime.Now };
                 dbContext.ShoppingCart.Add(cart);
+                dbContext.SaveChanges();
+            }
+            var existingProduct = cart.Items.SingleOrDefault(p=>p.ProductId.Equals(item.ProductId));
+            if (existingProduct == null)
+            {
+                cart.Items.Add(new CartItem { ProductId = item.ProductId, Quanitity = item.Quantity });
             }
             else
             {
-                cart = dbContext.ShoppingCart.First(c => c.SessionId.Equals(item.SessionId.Value));
+                existingProduct.Quanitity += item.Quantity;
             }
-            
-            cart.Items.Add(new CartItem { ProductId = item.ProductId, Quanitity = item.Quantity });
-        
             dbContext.SaveChanges();
             return new AddToCartResult { SessionId = cart.SessionId };
 
