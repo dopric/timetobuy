@@ -20,15 +20,25 @@ namespace timetobuy.Features
             this.cartservice = cartservice;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(Guid? sessionId)
         {
-            return Ok("this is ok");
+           return Ok(this.cartservice.GetCartItems(sessionId));
         }
+
         [HttpPost]
         public IActionResult AddToCart(AddToCartItem item)
         {
             AddToCartResult result = cartservice.AddToCart(item);
             return Ok(result.SessionId);
+        }
+
+        [HttpDelete]
+        [Route("{sessionId}/lines/{productId}")]
+        public async Task<IActionResult> DeleteById(Guid sessionId, int productId)
+        {
+            await cartservice.RemoveItem(sessionId, productId);
+            return Ok("DELETED");
         }
 
     }
