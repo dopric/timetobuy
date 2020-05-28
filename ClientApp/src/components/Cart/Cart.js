@@ -1,6 +1,8 @@
 ﻿import React, { Component } from 'react'
 import Axios from 'axios'
 import RemoveProduct from './RemoveProduct';
+import { Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 export default class Cart extends Component{
     constructor(props) {
@@ -28,31 +30,38 @@ export default class Cart extends Component{
             return <div>Your cart is empty </div>
         }
         return (
-            <table className="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <td>Product</td>
-                        <td>Quantity</td>
-                        <td>Price</td>
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.state.items.map((item,i) =>
-                        <tr key={i}>
-                            <td>{item.name}</td>
-                            <td>{item.quantity}</td>
-                            <td>{item.price}</td>
-                            <td>
-                                <RemoveProduct
-                                    productId={item.id}
-                                    onItemRemoved={this.handleItemRemoved}>
-                                </RemoveProduct>
-                            </td>
-                         </tr>
-                    )}
-                </tbody>
+            <div>
+                <Row className="clearfix" style={{ padding: '.5rem' }}>
+                    <Col>
+                        <Link to="/checkout" className="btn btn-primary float-right">Checkout</Link>
+                    </Col>
+                </Row>
+                <table className="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td>Product</td>
+                            <td>Quantity</td>
+                            <td>Price</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.items.map((item,i) =>
+                            <tr key={i}>
+                                <td>{item.name}</td>
+                                <td>{item.quantity}</td>
+                                <td>{item.price}</td>
+                                <td>
+                                    <RemoveProduct
+                                        productId={item.id}
+                                        onItemRemoved={this.handleItemRemoved}>
+                                    </RemoveProduct>
+                                </td>
+                             </tr>
+                        )}
+                    </tbody>
                 </table>
+            </div>
         )
         
     }

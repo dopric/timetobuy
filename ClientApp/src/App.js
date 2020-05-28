@@ -8,6 +8,7 @@ import { Counter } from './components/Counter';
 import './custom.css'
 import ProductDetails from './components/Products/ProductDetails';
 import Cart from './components/Cart/Cart'
+import CheckoutPage from './components/Checkout/CheckoutPage';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -19,7 +20,8 @@ export default class App extends Component {
         <Route path='/counter' component={Counter} />
         <Route path='/fetch-data' component={FetchData} />
             <Route path="/product/details/:id" component={ProductDetails} />
-            <Route path="/cart" component={Cart}/>
+            <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={CheckoutPage} />
       </Layout>
     );
   }
