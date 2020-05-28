@@ -10,7 +10,13 @@ export default class CustomerDetails extends React.Component {
         email: ''
     }
 
-
+    handleChange(newState) {
+        this.setState(newState, ()=>{
+            if (this.props.onChanged) {
+                this.props.onChanged(this.state)
+            }
+        })
+    }
     render() {
         return (
             
@@ -20,7 +26,7 @@ export default class CustomerDetails extends React.Component {
                     <Col sm={10}>
                         <Input type="text" id="firstName" placeholder="First Name"
                             value={this.state.firstName}
-                            onChange={(e) => this.setState({firstName: e.target.value})} />
+                            onChange={(e) => this.handleChange({firstName: e.target.value})} />
                     </Col>
                     </FormGroup>
                 <FormGroup row>
@@ -28,7 +34,7 @@ export default class CustomerDetails extends React.Component {
                     <Col sm={10}>
                         <Input type="text" id="lastName" placeholder="Last Name"
                             value={this.state.lastName}
-                            onChange={(e) => this.setState({lastName: e.target.value})}/>
+                            onChange={(e) => this.handleChange({lastName: e.target.value})}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -36,7 +42,7 @@ export default class CustomerDetails extends React.Component {
                     <Col sm={10}>
                         <Input type="email" id="email" placeholder="Email"
                             value={this.state.email}
-                            onChange={(e) => this.setState({email: e.target.value})}/>
+                            onChange={(e) => this.handleChange({email: e.target.value})}/>
                     </Col>
                     </FormGroup>
             </Form>

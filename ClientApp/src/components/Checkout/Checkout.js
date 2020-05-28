@@ -10,11 +10,15 @@ export default class Checkout extends Component{
         deliveryAddress: {}
     }
 
+    onCustomerDetailsChanged = (details) => {
+        this.setState({ customer: details })
+    }
+
     render() {
         return (
             <div>
                 <h4>Your Details</h4>
-                <CustomerDetails/>
+                <CustomerDetails onChanged={this.onCustomerDetailsChanged}/>
                 <h4>Billing Address</h4>
                 <h4>Delivery Address</h4>
             </div>
